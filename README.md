@@ -65,7 +65,7 @@ http://localhost/monitoring_printer
 | Role  | Username | Password |
 | ----- | -------- | -------- |
 | Admin | admin    | admin123 |
-| User  | user     | user123  |
+| User  | user     | user456  |
 
 > You should change your password immediately after logging in.
 
