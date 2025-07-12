@@ -1,9 +1,3 @@
-Berikut versi **Bahasa Inggris** dari `README.md` untuk proyek **Monitoring Printer** kamu:
-
----
-
-### 📄 `README.md` (English Version)
-
 ```markdown
 # Monitoring Printer
 
