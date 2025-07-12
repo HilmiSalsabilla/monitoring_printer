@@ -1,16 +1,16 @@
 # Monitoring Printer
 
-Monitoring Printer adalah aplikasi berbasis web yang digunakan untuk memantau status printer di lingkungan kantor atau instansi. Aplikasi ini dikembangkan menggunakan **PHP CodeIgniter 3** dan **MySQL** sebagai database.
+Monitoring Printer is a web-based application used to monitor printer status within an office or organization. This system is built using **PHP CodeIgniter 3** and **MySQL** as the database backend.
 
-## 🚀 Fitur Utama
+## 🚀 Key Features
 
-- Manajemen data printer (nama, IP, lokasi, dsb)
-- Pencatatan status printer (aktif, error, offline, dsb)
-- Login dan role-based access control (Admin & User)
-- Dashboard dengan statistik dan grafik penggunaan
-- Riwayat aktivitas pengguna
+- Manage printer data (name, IP, location, etc.)
+- Record printer status (active, error, offline, etc.)
+- Login system with role-based access control (Admin & User)
+- Dashboard with statistics and usage charts
+- User activity logs
 
-## 🛠️ Teknologi yang Digunakan
+## 🛠️ Built With
 
 - PHP 7.x / 8.x
 - CodeIgniter 3.x
@@ -19,7 +19,7 @@ Monitoring Printer adalah aplikasi berbasis web yang digunakan untuk memantau st
 - Chart.js
 - jQuery
 
-## 📦 Struktur Folder Penting
+## 📁 Project Structure
 
 application/
 ├── controllers/
@@ -37,35 +37,35 @@ bash
 Copy
 Edit
 
-## ⚙️ Cara Menjalankan Aplikasi (Localhost)
+## ⚙️ How to Run (Localhost)
 
-1. Clone repo ini ke folder `htdocs` kamu:
+1. Clone this repository into your `htdocs` folder:
 
 ```bash
-git clone https://github.com/username/monitoring_printer.git
-Import file database.sql ke phpMyAdmin
+git clone https://github.com/your-username/monitoring_printer.git
+Import the database.sql file into your local MySQL via phpMyAdmin
 
-Edit konfigurasi database di:
+Configure your database connection in:
 
 arduino
 Copy
 Edit
 application/config/database.php
-Jalankan melalui browser:
+Run in your browser:
 
 arduino
 Copy
 Edit
 http://localhost/monitoring_printer
-🔐 Default Login
+🔐 Default Login Credentials
 Role	Username	Password
 Admin	admin	admin123
 User	user	user123
 
-Ubah password segera setelah login untuk alasan keamanan.
+You should change your password immediately after logging in.
 
-👨‍💻 Kontributor
+👨‍💻 Developer
 Hilmi Salsabilla – Backend Developer
 
-📃 Lisensi
-Proyek ini bersifat pribadi/internal. Untuk penggunaan lebih lanjut, harap hubungi pemilik repo.
+📄 License
+This project is for private/internal use. For further usage, please contact the repository owner.
