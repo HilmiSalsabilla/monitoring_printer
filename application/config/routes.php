@@ -50,34 +50,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'login';
-$route['404_override'] = '';
+$route['404_override']       = '';
 $route['translate_uri_dashes'] = FALSE;
 
-//PROSES_LOGIN
-$route['login']['post'] = 'Login/proses_login';
-$route['logout']['get'] = 'Login/logout';
+$route['login']              = 'Login/index';
+$route['login/proses']       = 'Login/proses_login';
+$route['logout']             = 'Login/logout';
 
-//DASHBOARD
-$route['dashboard']['get'] = 'Dashboard/index';
+$route['dashboard']          = 'Dashboard/index';
 
-//PRINTER
-$route['printer']['get'] = 'Printer/index';
+$route['printer']            = 'Printer/index';
+$route['printer-tambah']     = 'Printer/tambah';
+$route['printer-store']      = 'Printer/store';
+$route['printer-edit/(:num)'] = 'Printer/edit/$1';
+$route['printer-edit']       = 'Printer/edit_store';
+$route['printer-hapus/(:num)'] = 'Printer/hapus/$1';
 
-$route['printer-tambah']['get'] = 'Printer/tambah';
-$route['printer-store']['post'] = 'Printer/store';
-
-$route['printer-edit/(:num)']['get'] = 'Printer/edit/$1';
-$route['printer-edit']['post'] = 'Printer/edit_store';
-
-$route['printer-hapus/(:num)']['get'] = 'Printer/hapus/$1';
-
-//USER
-$route['user']['get'] = 'User/index';
-
-$route['user-tambah']['get'] = 'User/tambah';
-$route['user-store']['post'] = 'User/store';
-
-$route['user-edit/(:num)']['get'] = 'User/edit/$1';
-$route['user-edit']['post'] = 'User/edit_store';
-
-$route['user-hapus/(:num)']['get'] = 'User/hapus/$1';
+$route['user']               = 'User/index';
+$route['user-tambah']        = 'User/tambah';
+$route['user-store']         = 'User/store';
+$route['user-edit/(:num)']   = 'User/edit/$1';
+$route['user-edit']          = 'User/edit_store';
+$route['user-hapus/(:num)']  = 'User/hapus/$1';

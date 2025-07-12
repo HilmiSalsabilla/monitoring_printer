@@ -6,88 +6,71 @@
   <title>Monitoring Printer</title>
 
   <!-- General CSS Files -->
-  <link rel="stylesheet" href="<?php echo base_url() ?>/assets/modules/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="<?php echo base_url() ?>/assets/modules/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="<?= base_url('assets/modules/bootstrap/css/bootstrap.min.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/modules/fontawesome/css/all.min.css') ?>">
 
   <!-- CSS Libraries -->
-  <link rel="stylesheet" href="<?php echo base_url() ?>/assets/modules/bootstrap-social/bootstrap-social.css">
+  <link rel="stylesheet" href="<?= base_url('assets/modules/bootstrap-social/bootstrap-social.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/modules/izitoast/css/iziToast.min.css') ?>">
 
   <!-- Template CSS -->
-  <link rel="stylesheet" href="<?php echo base_url() ?>/assets/css/style.css">
-  <link rel="stylesheet" href="<?php echo base_url() ?>/assets/css/components.css">
-  
-<!-- Start GA -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/css/components.css') ?>">
 
-  gtag('config', 'UA-94034622-3');
-</script>
-<!-- /END GA -->
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-94034622-3');
+  </script>
 </head>
 
-<body  style="background-color: #c3271f;">
+<body style="background-color: #c3271f;">
   <div id="app">
     <section class="section">
       <div class="container mt-5">
         <div class="row">
           <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
             <div class="login-brand">
-              <img src="<?php echo base_url() ?>/assets/img/logo PT.jpeg" alt="logo" width="100" class="shadow-light rounded-circle">
+              <img src="<?= base_url('assets/img/logo_PT.jpeg') ?>" alt="logo" width="100" class="shadow-light rounded-circle">
             </div>
 
-            <div class="card card-danger"><br>
-              <div>
-                <h5 style="color: black; text-align: center;">LOGIN</h5>
+            <div class="card card-danger">
+              <div class="card-header justify-content-center">
+                <h5 class="text-dark">LOGIN</h5>
               </div>
-
               <div class="card-body">
-                <!-- Flash message if exists -->
-                <?php if ($this->session->flashdata('pesan')) : ?>
-                  <div class="alert alert-success text-center">
-                    <?php echo $this->session->flashdata('pesan'); ?>
-                  </div>
-                <?php endif; ?>
 
-                <?php if ($this->session->flashdata('error')) : ?>
-                  <div class="alert alert-danger text-center">
-                    <?php echo $this->session->flashdata('error'); ?>
-                  </div>
-                <?php endif; ?>
-
-                <form method="POST" action="<?php echo site_url('login/proses_login') ?>" class="needs-validation" novalidate="">
+                <form method="POST" action="<?= site_url('login/proses_login') ?>" class="needs-validation" novalidate="">
                   <div class="form-group">
                     <label for="nik">NIK</label>
-                    <input id="nik" type="nik" class="form-control" name="nik" tabindex="1" required autofocus>
-                    <div class="invalid-feedback">
-                      Please fill in your NIK
-                    </div>
+                    <input id="nik" type="text" class="form-control" name="nik" tabindex="1" required autofocus>
+                    <div class="invalid-feedback">Please fill in your NIK</div>
                   </div>
+
                   <div class="form-group">
-                    <div class="d-block">
-                    	<label for="password" class="control-label">Password</label>
-                    </div>
+                    <label for="password" class="control-label">Password</label>
                     <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
-                    <div class="invalid-feedback">
-                      Please fill in your password
-                    </div>
+                    <div class="invalid-feedback">Please fill in your password</div>
                     <div class="float-right">
-                        <a href="auth-forgot-password.html" class="text-small" style="color: #c3271f;">
-                          Forgot Password?
-                        </a>
+                      <a href="#" class="text-small" style="color: #c3271f;">Forgot Password?</a>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <br>
-                    <button type="submit" class="btn btn-danger btn-lg btn-block" tabindex="4">Login</button>
+
+                  <div class="form-group mt-4">
+                    <button type="submit" class="btn btn-danger btn-lg btn-block" tabindex="4">
+                      Login
+                    </button>
                   </div>
                 </form>
+
               </div>
-            </div><br><br><br>
-            <div class="simple-footer" style="color: white;">
-              Copyright &copy; PT. Semen Padang
+            </div>
+
+            <div class="simple-footer text-white mt-3 text-center">
+              &copy; <?= date('Y') ?> PT. Semen Padang
             </div>
           </div>
         </div>
@@ -96,33 +79,40 @@
   </div>
 
   <!-- General JS Scripts -->
-  <script src="<?php echo base_url() ?>/assets/modules/jquery.min.js"></script>
-  <script src="<?php echo base_url() ?>/assets/modules/popper.js"></script>
-  <script src="<?php echo base_url() ?>/assets/modules/tooltip.js"></script>
-  <script src="<?php echo base_url() ?>/assets/modules/bootstrap/js/bootstrap.min.js"></script>
-  <script src="<?php echo base_url() ?>/assets/modules/nicescroll/jquery.nicescroll.min.js"></script>
-  <script src="<?php echo base_url() ?>/assets/modules/moment.min.js"></script>
-  <script src="<?php echo base_url() ?>/assets/js/stisla.js"></script>
-  
-  <!-- JS Libraies -->
+  <script src="<?= base_url('assets/modules/jquery.min.js') ?>"></script>
+  <script src="<?= base_url('assets/modules/popper.js') ?>"></script>
+  <script src="<?= base_url('assets/modules/tooltip.js') ?>"></script>
+  <script src="<?= base_url('assets/modules/bootstrap/js/bootstrap.min.js') ?>"></script>
+  <script src="<?= base_url('assets/modules/nicescroll/jquery.nicescroll.min.js') ?>"></script>
+  <script src="<?= base_url('assets/modules/moment.min.js') ?>"></script>
+  <script src="<?= base_url('assets/js/stisla.js') ?>"></script>
 
-  <!-- Page Specific JS File -->
-  
-  <!-- Template JS File -->
-  <script src="<?php echo base_url() ?>/assets/js/scripts.js"></script>
-  <script src="<?php echo base_url() ?>/assets/js/custom.js"></script>
-  
-  <?php if ($this->session->flashdata('pesan')) : ?>
-    <div class="alert alert-success text-center">
-        <?php echo $this->session->flashdata('pesan'); ?>
-    </div>
-<?php endif; ?>
+  <!-- iziToast -->
+  <script src="<?= base_url('assets/modules/izitoast/js/iziToast.min.js') ?>"></script>
 
-<?php if ($this->session->flashdata('error')) : ?>
-    <div class="alert alert-danger text-center">
-        <?php echo $this->session->flashdata('error'); ?>
-    </div>
-<?php endif; ?>
-  
+  <!-- Template JS -->
+  <script src="<?= base_url('assets/js/scripts.js') ?>"></script>
+  <script src="<?= base_url('assets/js/custom.js') ?>"></script>
+
+  <!-- Flashdata Notifications -->
+  <?php if ($this->session->flashdata('pesan')): ?>
+    <script>
+      iziToast.success({
+        title: 'Success!',
+        message: '<?= $this->session->flashdata('pesan') ?>',
+        position: 'topRight'
+      });
+    </script>
+  <?php endif; ?>
+
+  <?php if ($this->session->flashdata('error')): ?>
+    <script>
+      iziToast.error({
+        title: 'Error!',
+        message: '<?= $this->session->flashdata('error') ?>',
+        position: 'topRight'
+      });
+    </script>
+  <?php endif; ?>
 </body>
 </html>

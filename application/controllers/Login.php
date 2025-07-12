@@ -1,65 +1,60 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
-        
+
 class Login extends CI_Controller
 {
-	public function index() {
-    // Menampilkan view login
-    $this->load->view('login');
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('User_model');
+		$this->load->library(['session', 'form_validation']);
+		$this->load->helper(['url', 'form']);
 	}
 
-	public function proses_login() {
-    // Mengambil input NIK dan password
-    $nik = $this->input->post('nik');
-    $password = $this->input->post('password');
-  
-    // Mengambil data user berdasarkan NIK
-    $this->db->where('nik', $nik);
-    $user = $this->db->get('tb_user');
-    
-    // Mengecek apakah user ditemukan
-    if ($user->num_rows() > 0) {
-      // Mengambil password yang disimpan di database
-      $stored_password = $user->row()->password;
+	public function index()
+	{
+		// Jika sudah login, langsung ke dashboard
+		if ($this->session->userdata('id_user')) {
+			redirect('dashboard');
+		}
+		$this->load->view('login');
+	}
 
-        // Memverifikasi password yang dimasukkan dengan yang ada di database
-      if (password_verify($password, $stored_password)) {
-        // Jika password benar
-        $data = [
-            'id_user' => $user->row()->id_user,
-            'nama' => $user->row()->nama,
-            'email' => $user->row()->email,
-            'nik' => $user->row()->nik,
-            'level' => $user->row()->level
-        ];
+	public function proses_login()
+	{
+		$nik = $this->input->post('nik', true);
+		$password = $this->input->post('password', true);
 
-        // Menyimpan data user di session
-        $this->session->set_userdata($data);
+		// Validasi melalui User_model
+		$user = $this->User_model->verify_credentials($nik, $password);
 
-      echo "<pre>";
-      print_r($this->session->userdata());
-      echo "</pre>";
-      exit;
+		if ($user) {
+			// Simpan session
+			$data = [
+				'id_user'   => $user['id_user'],
+				'nama'      => $user['nama'],
+				'email'     => $user['email'],
+				'nik'       => $user['nik'],
+				'level'     => $user['level'],
+				'logged_in' => true
+			];
+			$this->session->set_userdata($data);
 
-        $this->session->set_flashdata('pesan', 'Anda berhasil login.');
-        redirect('dashboard', 'refresh');
-      } else {
-        // Jika password salah
-        $this->session->set_flashdata('error', 'Password anda salah!');
-        redirect('login', 'refresh');
-      }
-    } else {
-      // Jika NIK tidak ditemukan
-      $this->session->set_flashdata('error', 'NIK tidak ditemukan!');
-      redirect('login', 'refresh');
-    }
-}
+			// ✅ Update kolom last_login
+			$this->db->where('id_user', $user['id_user']);
+			$this->db->update('tb_user', ['last_login' => date('Y-m-d H:i:s')]);
 
-	public function logout() {
-    // Menghapus session saat logout
-    $this->session->sess_destroy();
-    redirect('login', 'refresh');
+			$this->session->set_flashdata('pesan', 'Anda berhasil login.');
+			redirect('dashboard');
+		} else {
+			$this->session->set_flashdata('error', 'NIK atau password salah!');
+			redirect('login');
+		}
+	}
+
+	public function logout()
+	{
+		$this->session->sess_destroy();
+		redirect('login');
 	}
 }
-
-/* End of file Login.php */
