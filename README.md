@@ -1,3 +1,10 @@
+Berikut versi **Bahasa Inggris** dari `README.md` untuk proyek **Monitoring Printer** kamu:
+
+---
+
+### 📄 `README.md` (English Version)
+
+```markdown
 # Monitoring Printer
 
 Monitoring Printer is a web-based application used to monitor printer status within an office or organization. This system is built using **PHP CodeIgniter 3** and **MySQL** as the database backend.
@@ -21,6 +28,8 @@ Monitoring Printer is a web-based application used to monitor printer status wit
 
 ## 📁 Project Structure
 
+```
+
 application/
 ├── controllers/
 ├── models/
@@ -33,9 +42,7 @@ assets/
 ├── js/
 ├── images/
 
-bash
-Copy
-Edit
+````
 
 ## ⚙️ How to Run (Localhost)
 
@@ -43,29 +50,37 @@ Edit
 
 ```bash
 git clone https://github.com/your-username/monitoring_printer.git
-Import the database.sql file into your local MySQL via phpMyAdmin
+````
 
-Configure your database connection in:
+2. Import the `database.sql` file into your local MySQL via phpMyAdmin
 
-arduino
-Copy
-Edit
+3. Configure your database connection in:
+
+```
 application/config/database.php
-Run in your browser:
+```
 
-arduino
-Copy
-Edit
+4. Run in your browser:
+
+```
 http://localhost/monitoring_printer
-🔐 Default Login Credentials
-Role	Username	Password
-Admin	admin	admin123
-User	user	user123
+```
 
-You should change your password immediately after logging in.
+## 🔐 Default Login Credentials
 
-👨‍💻 Developer
-Hilmi Salsabilla – Backend Developer
+| Role  | Username | Password |
+| ----- | -------- | -------- |
+| Admin | admin    | admin123 |
+| User  | user     | user123  |
 
-📄 License
+> You should change your password immediately after logging in.
+
+## 👨‍💻 Developer
+
+* Hilmi Salsabilla – Backend Developer
+
+## 📄 License
+
 This project is for private/internal use. For further usage, please contact the repository owner.
+
+````
