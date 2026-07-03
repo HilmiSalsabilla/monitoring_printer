@@ -1,7 +1,7 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
         
-class User extends CI_Controller
+class User extends Auth_Controller
 {
   public function index()
   {
@@ -150,4 +150,4 @@ class User extends CI_Controller
 
 }
 
-/* End of file  User.php */      
+/* End of file  User.php */

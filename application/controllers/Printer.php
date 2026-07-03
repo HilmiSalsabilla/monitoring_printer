@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Printer extends CI_Controller
+class Printer extends Auth_Controller
 {
   public function index()
   {

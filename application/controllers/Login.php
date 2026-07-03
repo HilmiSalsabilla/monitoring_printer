@@ -5,6 +5,12 @@ class Login extends CI_Controller
 {
 	public function index()
 	{
+		// If already logged in, skip the login form entirely
+		if ($this->session->userdata('nik')) {
+			redirect('dashboard', 'refresh');
+			return;
+		}
+
 		$this->load->view('login');
 	}
 
