@@ -35,8 +35,9 @@ class User extends Auth_Controller
     $this->form_validation->set_rules('nama', 'Nama', 'required',[
       'required' => '%s Harus Anda Isi!'
     ]);
-    $this->form_validation->set_rules('email', 'Email', 'required',[
-      'required' => '%s Harus Anda Isi!'
+    $this->form_validation->set_rules('email', 'Email', 'required|valid_email',[
+      'required' => '%s Harus Anda Isi!',
+      'valid_email' => '%s Harus berupa alamat email yang valid!'
     ]);
     $this->form_validation->set_rules('nik', 'NIK', 'required',[
       'required' => '%s Harus Anda Isi!'
@@ -84,8 +85,9 @@ class User extends Auth_Controller
     $this->form_validation->set_rules('nama', 'Nama', 'required',[
       'required' => '%s Harus Anda Isi!'
     ]);
-    $this->form_validation->set_rules('email', 'Email', 'required',[
-      'required' => '%s Harus Anda Isi!'
+    $this->form_validation->set_rules('email', 'Email', 'required|valid_email',[
+      'required' => '%s Harus Anda Isi!',
+      'valid_email' => '%s Harus berupa alamat email yang valid!'
     ]);
     $this->form_validation->set_rules('nik', 'NIK', 'required',[
       'required' => '%s Harus Anda Isi!'
