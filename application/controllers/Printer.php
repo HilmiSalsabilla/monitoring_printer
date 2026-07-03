@@ -32,10 +32,10 @@ class Printer extends Auth_Controller
     $this->form_validation->set_rules('device_model', 'Device Model', 'required',[
       'required' => '%s Harus Anda Isi!'
     ]);
-    $this->form_validation->set_rules('sn_printer', 'SN Printer', 'required',[
+    $this->form_validation->set_rules('sn_printer', 'SN Printer', 'required|callback_check_unique_sn_printer',[
       'required' => '%s Harus Anda Isi!'
     ]);
-    $this->form_validation->set_rules('ip_address', 'IP Address', 'required',[
+    $this->form_validation->set_rules('ip_address', 'IP Address', 'required|callback_check_unique_ip_address',[
       'required' => '%s Harus Anda Isi!'
     ]);
     $this->form_validation->set_rules('hostname', 'Hostname', 'required',[
@@ -89,10 +89,10 @@ class Printer extends Auth_Controller
     $this->form_validation->set_rules('device_model', 'Device Model', 'required',[
       'required' => '%s Harus Anda Isi!'
     ]);
-    $this->form_validation->set_rules('sn_printer', 'SN Printer', 'required',[
+    $this->form_validation->set_rules('sn_printer', 'SN Printer', 'required|callback_check_unique_sn_printer',[
       'required' => '%s Harus Anda Isi!'
     ]);
-    $this->form_validation->set_rules('ip_address', 'IP Address', 'required',[
+    $this->form_validation->set_rules('ip_address', 'IP Address', 'required|callback_check_unique_ip_address',[
       'required' => '%s Harus Anda Isi!'
     ]);
     $this->form_validation->set_rules('hostname', 'Hostname', 'required',[
@@ -190,6 +190,42 @@ class Printer extends Auth_Controller
 
     $this->session->set_flashdata('sukses', 'Data printer berhasil dipulihkan dari trash bin!');
     redirect('printer/index', 'refresh');
+  }
+
+  // Callback for form_validation: ensures sn_printer is unique, so it isn't flagged as a duplicate of itself.
+  public function check_unique_sn_printer($str)
+  {
+    $id_printer = $this->input->post('id_printer');
+
+    $this->db->where('sn_printer', $str);
+    if ($id_printer) {
+      $this->db->where('id_printer !=', $id_printer);
+    }
+    $exists = $this->db->get('tb_printer')->row();
+
+    if ($exists) {
+      $this->form_validation->set_message('check_unique_sn_printer', '{field} sudah digunakan oleh printer lain!');
+      return FALSE;
+    }
+    return TRUE;
+  }
+
+	// Callback for form_validation: ensures ip_address is unique.
+  public function check_unique_ip_address($str)
+  {
+    $id_printer = $this->input->post('id_printer');
+
+    $this->db->where('ip_address', $str);
+    if ($id_printer) {
+      $this->db->where('id_printer !=', $id_printer);
+    }
+    $exists = $this->db->get('tb_printer')->row();
+
+    if ($exists) {
+      $this->form_validation->set_message('check_unique_ip_address', '{field} sudah digunakan oleh printer lain!');
+      return FALSE;
+    }
+    return TRUE;
   }
 
 
