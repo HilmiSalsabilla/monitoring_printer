@@ -47,7 +47,10 @@ class User extends Auth_Controller
 
     if($this->form_validation->run() == FALSE){
 			//validation gagal
-			$this->load->view('user/index');
+			$this->load->view('template/header');
+			$this->load->view('template/sidebar');
+			$this->load->view('user/tambah');
+			$this->load->view('template/footer');
 		}else{
 			//validation berhasil
 			$data = [
