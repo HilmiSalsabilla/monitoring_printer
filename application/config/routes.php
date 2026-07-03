@@ -70,7 +70,7 @@ $route['printer-edit/(:num)']['get'] = 'Printer/edit/$1';
 $route['printer-edit']['post'] = 'Printer/edit_store';
 
 $route['printer-hapus/(:num)']['get'] = 'Printer/hapus/$1';
-$route['trash_bin']['get'] = 'Printer/trash_bin';
+$route['printer-trash-bin']['get'] = 'Printer/trash_bin';
 $route['printer-restore/(:num)']['get'] = 'Printer/restore/$1';
 
 //USER
@@ -83,5 +83,5 @@ $route['user-edit/(:num)']['get'] = 'User/edit/$1';
 $route['user-edit']['post'] = 'User/edit_store';
 
 $route['user-hapus/(:num)']['get'] = 'User/hapus/$1';
-$route['trash_bin']['get'] = 'User/trash_bin';
+$route['user-trash-bin']['get'] = 'User/trash_bin';
 $route['user-restore/(:num)']['get'] = 'User/restore/$1';
