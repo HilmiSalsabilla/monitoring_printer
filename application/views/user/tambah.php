@@ -5,6 +5,7 @@
 		</div>
 		<div class="section-body">
 			<form action="<?php echo base_url('user-store') ?>" method="POST" enctype="multipart/form-data">
+				<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
 				<div class="form-group">
 					<label>Nama</label>
 					<input type="text" name="nama" class="form-control" value="<?php echo set_value('nama') ?>">

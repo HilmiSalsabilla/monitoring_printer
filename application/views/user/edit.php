@@ -5,6 +5,7 @@
 		</div>
 		<div class="section-body">
 			<form action="<?php echo base_url('user-edit') ?>" method="POST" enctype="multipart/form-data">
+				<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
       <input type="hidden" name="id_user" value="<?php echo $user->id_user ?>">
 				<div class="form-group">
 					<label>Nama</label>

@@ -45,6 +45,7 @@
 
               <div class="card-body">
                 <form method="POST" action="<?php echo site_url('login') ?>" class="needs-validation" novalidate="">
+                  <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
                   <div class="form-group">
                     <label for="nik">NIK</label>
                     <input id="nik" type="nik" class="form-control" name="nik" tabindex="1" required autofocus>

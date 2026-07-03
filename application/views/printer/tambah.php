@@ -5,6 +5,7 @@
 		</div>
 		<div class="section-body">
 			<form action="<?php echo base_url('printer-store') ?>" method="POST" enctype="multipart/form-data">
+				<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
 				<div class="form-group">
 					<label>Device Model</label>
 					<input type="text" name="device_model" class="form-control" value="<?php echo set_value('device_model') ?>">
