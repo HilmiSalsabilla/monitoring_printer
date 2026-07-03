@@ -5,10 +5,8 @@ class Dashboard extends Auth_Controller {
 
 	public function index()
 	{
-		$this->db->where('level','User');
-		$data['total_user'] = $this->db->count_all_results('tb_user');
-
-		$data['total_printer'] = $this->db->count_all('tb_printer');
+		$data['total_user'] = $this->User_model->count_by_level('User');
+		$data['total_printer'] = $this->Printer_model->count_all();
 
 		$data['bulan'] = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Des'];
 

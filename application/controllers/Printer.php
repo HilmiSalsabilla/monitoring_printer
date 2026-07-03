@@ -5,9 +5,8 @@ class Printer extends Auth_Controller
 {
   public function index()
   {
-    $this->load->database();
-    $data['printer'] = $this->db->get('tb_printer')->result();
-    $data['trash_bin'] = $this->db->get('tb_printer_deleted')->result(); // Menambahkan data trash bin
+    $data['printer'] = $this->Printer_model->get_all();
+    $data['trash_bin'] = $this->Printer_model->get_all_trash();
 
     $this->load->view('template/header');
 		$this->load->view('template/sidebar');
@@ -59,13 +58,11 @@ class Printer extends Auth_Controller
 				"ip_address" => $this->input->post("ip_address"),
 				"hostname" => $this->input->post("hostname"),
 				"lokasi" => $this->input->post("lokasi")
-				// "status" => 'non aktif',
-				// "level" => 'user'
 			];
-    
-		$this->db->insert('tb_printer', $data);
-		$this->session->set_flashdata('sukses','Printer sudah berhasil ditambahkan!');
-		redirect('printer','refresh');
+
+			$this->Printer_model->insert($data);
+			$this->session->set_flashdata('sukses','Printer sudah berhasil ditambahkan!');
+			redirect('printer','refresh');
     }
   }
 
@@ -73,7 +70,7 @@ class Printer extends Auth_Controller
   {
     $this->require_admin();
 
-    $data['printer'] = $this->db->get_where('tb_printer', ['id_printer' => $id_printer])->row();
+    $data['printer'] = $this->Printer_model->get_by_id($id_printer);
 
     $this->load->view('template/header');
 		$this->load->view('template/sidebar');
@@ -104,7 +101,7 @@ class Printer extends Auth_Controller
 
     if($this->form_validation->run() == FALSE){
 			//validattion gagal
-			$data['printer'] = $this->db->get_where('tb_printer', ['id_printer' => $id_printer])->row();
+			$data['printer'] = $this->Printer_model->get_by_id($id_printer);
 			$this->load->view('template/header');
 			$this->load->view('template/sidebar');
 			$this->load->view('printer/edit', $data, FALSE);
@@ -112,7 +109,6 @@ class Printer extends Auth_Controller
 		}else{
 			//validation berhasil
 			$data = [
-        "id_printer" => $this->input->post("id_printer"),
 				"device_model" => $this->input->post("device_model"),
 				"sn_printer" => $this->input->post("sn_printer"),
 				"ip_address" => $this->input->post("ip_address"),
@@ -120,8 +116,8 @@ class Printer extends Auth_Controller
 				"lokasi" => $this->input->post("lokasi"),
 			];
 
-			$this->db->update('tb_printer', $data, ['id_printer'=>$id_printer]);
-			$this->session->set_flashdata('pesan', 
+			$this->Printer_model->update($id_printer, $data);
+			$this->session->set_flashdata('pesan',
       '<div id="pesan" class="alert alert-success" role="alert">
 			Data berhasil di edit!
       </div>');
@@ -133,13 +129,7 @@ class Printer extends Auth_Controller
   {
     $this->require_admin();
 
-    // $this->db->get_where('tb_printer', ['id_printer' => $id_printer])->row();
-    // $this->db->delete('tb_printer', ['id_printer' => $id_printer]);
-
-		// $this->session->set_flashdata('sukses','Data printer berhasil dihapus!');
-		// redirect('printer/index','refresh');
-    
-    $printer = $this->db->get_where('tb_printer', ['id_printer' => $id_printer])->row();
+    $printer = $this->Printer_model->get_by_id($id_printer);
 
     if (!$printer) {
       $this->session->set_flashdata('error', 'Data printer tidak ditemukan.');
@@ -148,10 +138,10 @@ class Printer extends Auth_Controller
     }
 
     // Simpan data yang dihapus ke trash bin (tb_printer_deleted)
-    $this->db->insert('tb_printer_deleted', $printer);
+    $this->Printer_model->insert_trash($printer);
 
     // Hapus data dari tabel utama (tb_printer)
-    $this->db->delete('tb_printer', ['id_printer' => $id_printer]);
+    $this->Printer_model->delete($id_printer);
 
     $this->session->set_flashdata('sukses', 'Data printer berhasil dipindahkan ke trash bin!');
     redirect('printer/index', 'refresh');
@@ -161,8 +151,7 @@ class Printer extends Auth_Controller
   {
     $this->require_admin();
 
-    $this->load->database();
-    $data['trash_bin'] = $this->db->get('tb_printer_deleted')->result();
+    $data['trash_bin'] = $this->Printer_model->get_all_trash();
 
     $this->load->view('template/header');
     $this->load->view('template/sidebar');
@@ -174,7 +163,7 @@ class Printer extends Auth_Controller
   {
     $this->require_admin();
 
-    $printer_deleted = $this->db->get_where('tb_printer_deleted', ['id_printer' => $id_printer])->row();
+    $printer_deleted = $this->Printer_model->get_trash_by_id($id_printer);
 
     if (!$printer_deleted) {
       $this->session->set_flashdata('error', 'Data printer tidak ditemukan di trash bin.');
@@ -183,51 +172,38 @@ class Printer extends Auth_Controller
     }
 
     // Simpan data yang dihapus dari trash bin kembali ke tabel utama (tb_printer)
-    $this->db->insert('tb_printer', $printer_deleted);
+    $this->Printer_model->insert($printer_deleted);
 
     // Hapus data dari trash bin (tb_printer_deleted)
-    $this->db->delete('tb_printer_deleted', ['id_printer' => $id_printer]);
+    $this->Printer_model->delete_trash($id_printer);
 
     $this->session->set_flashdata('sukses', 'Data printer berhasil dipulihkan dari trash bin!');
     redirect('printer/index', 'refresh');
   }
 
-  // Callback for form_validation: ensures sn_printer is unique, so it isn't flagged as a duplicate of itself.
+	// Callback for form_validation: ensures sn_printer is unique so it isn't flagged as a duplicate of itself.
   public function check_unique_sn_printer($str)
   {
     $id_printer = $this->input->post('id_printer');
 
-    $this->db->where('sn_printer', $str);
-    if ($id_printer) {
-      $this->db->where('id_printer !=', $id_printer);
-    }
-    $exists = $this->db->get('tb_printer')->row();
-
-    if ($exists) {
+    if ($this->Printer_model->sn_printer_exists($str, $id_printer)) {
       $this->form_validation->set_message('check_unique_sn_printer', '{field} sudah digunakan oleh printer lain!');
       return FALSE;
     }
     return TRUE;
   }
 
-	// Callback for form_validation: ensures ip_address is unique.
+  // Callback for form_validation: ensures ip_address is unique.
   public function check_unique_ip_address($str)
   {
     $id_printer = $this->input->post('id_printer');
 
-    $this->db->where('ip_address', $str);
-    if ($id_printer) {
-      $this->db->where('id_printer !=', $id_printer);
-    }
-    $exists = $this->db->get('tb_printer')->row();
-
-    if ($exists) {
+    if ($this->Printer_model->ip_address_exists($str, $id_printer)) {
       $this->form_validation->set_message('check_unique_ip_address', '{field} sudah digunakan oleh printer lain!');
       return FALSE;
     }
     return TRUE;
   }
-
 
 }
 

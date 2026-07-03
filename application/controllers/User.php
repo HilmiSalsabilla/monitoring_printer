@@ -1,6 +1,6 @@
-<?php 
+<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-        
+
 class User extends Auth_Controller
 {
   public function __construct()
@@ -12,9 +12,8 @@ class User extends Auth_Controller
 
   public function index()
   {
-    $this->load->database();
-    $data['user'] = $this->db->get('tb_user')->result();
-    $data['trash_bin'] = $this->db->get('tb_user_deleted')->result();
+    $data['user'] = $this->User_model->get_all();
+    $data['trash_bin'] = $this->User_model->get_all_trash();
 
     $this->load->view('template/header');
     $this->load->view('template/sidebar');
@@ -29,7 +28,7 @@ class User extends Auth_Controller
 		$this->load->view('user/tambah');
 		$this->load->view('template/footer');
   }
-  
+
   public function store()
   {
     $this->form_validation->set_rules('nama', 'Nama', 'required',[
@@ -58,20 +57,19 @@ class User extends Auth_Controller
 				"nama" => $this->input->post("nama"),
 				"email" => $this->input->post("email"),
 				"nik" => $this->input->post("nik"),
-				// "password" => sha1($this->input->post("password")),
         "password" => password_hash($this->input->post("password"), PASSWORD_DEFAULT),
 				"level" => 'User'
 			];
-    
-		$this->db->insert('tb_user', $data);
-		$this->session->set_flashdata('sukses','User sudah berhasil ditambahkan!');
-		redirect('user','refresh');
+
+			$this->User_model->insert($data);
+			$this->session->set_flashdata('sukses','User sudah berhasil ditambahkan!');
+			redirect('user','refresh');
     }
   }
 
   public function edit($id_user)
   {
-    $data['user'] = $this->db->get_where('tb_user', ['id_user' => $id_user])->row();
+    $data['user'] = $this->User_model->get_by_id($id_user);
 
     $this->load->view('template/header');
 		$this->load->view('template/sidebar');
@@ -98,7 +96,7 @@ class User extends Auth_Controller
 
     if($this->form_validation->run() == FALSE){
 			//validattion gagal
-			$data['user'] = $this->db->get_where('tb_user', ['id_user' => $id_user])->row();
+			$data['user'] = $this->User_model->get_by_id($id_user);
 			$this->load->view('template/header');
 			$this->load->view('template/sidebar');
 			$this->load->view('user/edit', $data, FALSE);
@@ -106,26 +104,24 @@ class User extends Auth_Controller
 		}else{
 			//validation berhasil
 			$data = [
-        "id_user" => $this->input->post("id_user"),
 				"nama" => $this->input->post("nama"),
 				"email" => $this->input->post("email"),
 				"nik" => $this->input->post("nik"),
-				// "password" => sha1($this->input->post("password"))
         "password" => password_hash($this->input->post("password"), PASSWORD_DEFAULT)
 			];
 
-			$this->db->update('tb_user', $data, ['id_user'=>$id_user]);
-			$this->session->set_flashdata('pesan', 
+			$this->User_model->update($id_user, $data);
+			$this->session->set_flashdata('pesan',
       '<div id="pesan" class="alert alert-success" role="alert">
 			Data berhasil di edit!
       </div>');
 			redirect('user','refresh');
     }
   }
-  
+
   public function hapus($id_user)
   {
-    $user = $this->db->get_where('tb_user', ['id_user' => $id_user])->row();
+    $user = $this->User_model->get_by_id($id_user);
 
     if (!$user) {
       $this->session->set_flashdata('error', 'Data user tidak ditemukan.');
@@ -133,9 +129,8 @@ class User extends Auth_Controller
       return;
     }
 
-    $this->db->insert('tb_user_deleted', $user);
-
-    $this->db->delete('tb_user', ['id_user' => $id_user]);
+    $this->User_model->insert_trash($user);
+    $this->User_model->delete($id_user);
 
     $this->session->set_flashdata('sukses', 'Data User berhasil dipindahkan ke TrashBin!');
     redirect('user/index', 'refresh');
@@ -143,8 +138,7 @@ class User extends Auth_Controller
 
   public function trash_bin()
   {
-    $this->load->database();
-    $data['trash_bin'] = $this->db->get('tb_user_deleted')->result();
+    $data['trash_bin'] = $this->User_model->get_all_trash();
 
     $this->load->view('template/header');
     $this->load->view('template/sidebar');
@@ -154,7 +148,7 @@ class User extends Auth_Controller
 
   public function restore($id_user)
   {
-    $user_deleted = $this->db->get_where('tb_user_deleted', ['id_user' => $id_user])->row();
+    $user_deleted = $this->User_model->get_trash_by_id($id_user);
 
     if (!$user_deleted) {
       $this->session->set_flashdata('error', 'Data user tidak ditemukan di trash bin.');
@@ -163,45 +157,33 @@ class User extends Auth_Controller
     }
 
     // Simpan data yang dihapus dari trash bin kembali ke tabel utama (tb_user)
-    $this->db->insert('tb_user', $user_deleted);
+    $this->User_model->insert($user_deleted);
 
     // Hapus data dari trash bin (tb_user_deleted)
-    $this->db->delete('tb_user_deleted', ['id_user' => $id_user]);
+    $this->User_model->delete_trash($id_user);
 
     $this->session->set_flashdata('sukses', 'Data user berhasil dipulihkan dari trash bin!');
     redirect('user/index', 'refresh');
   }
 
-  // Callback for form_validation: ensures nik is unique, so it isn't flagged as a duplicate of itself.
+	// Callback for form_validation: ensures nik is unique so it isn't flagged as a duplicate of itself.
   public function check_unique_nik($str)
   {
     $id_user = $this->input->post('id_user');
 
-    $this->db->where('nik', $str);
-    if ($id_user) {
-      $this->db->where('id_user !=', $id_user);
-    }
-    $exists = $this->db->get('tb_user')->row();
-
-    if ($exists) {
+    if ($this->User_model->nik_exists($str, $id_user)) {
       $this->form_validation->set_message('check_unique_nik', '{field} sudah digunakan oleh user lain!');
       return FALSE;
     }
     return TRUE;
   }
 
-  // Callback for form_validation: ensures email is unique.
+	// Callback for form_validation: ensures email is unique.
   public function check_unique_email($str)
   {
     $id_user = $this->input->post('id_user');
 
-    $this->db->where('email', $str);
-    if ($id_user) {
-      $this->db->where('id_user !=', $id_user);
-    }
-    $exists = $this->db->get('tb_user')->row();
-
-    if ($exists) {
+    if ($this->User_model->email_exists($str, $id_user)) {
       $this->form_validation->set_message('check_unique_email', '{field} sudah digunakan oleh user lain!');
       return FALSE;
     }

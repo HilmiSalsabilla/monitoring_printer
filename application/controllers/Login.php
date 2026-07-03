@@ -32,12 +32,7 @@ class Login extends CI_Controller
 			$nik = $this->input->post('nik');
 			$password = $this->input->post('password');
 
-			//$this->load->model('User_model'); // Ubah "user_model" sesuai dengan model untuk mengelola data pengguna
-
-			$user = $this->db->get_where('tb_user', ['nik' => $nik])->row_array();
-			//$user = $this->User_model->get_user_by_nik($nik);
-			//var_dump($user);
-
+			$user = $this->User_model->get_by_nik($nik);
 			if ($user) {
 				// Periksa apakah password sesuai
 				if (password_verify($password, $user['password'])) {
