@@ -125,6 +125,12 @@ class User extends Auth_Controller
   {
     $user = $this->db->get_where('tb_user', ['id_user' => $id_user])->row();
 
+    if (!$user) {
+      $this->session->set_flashdata('error', 'Data user tidak ditemukan.');
+      redirect('user/index', 'refresh');
+      return;
+    }
+
     $this->db->insert('tb_user_deleted', $user);
 
     $this->db->delete('tb_user', ['id_user' => $id_user]);
@@ -147,6 +153,12 @@ class User extends Auth_Controller
   public function restore($id_user)
   {
     $user_deleted = $this->db->get_where('tb_user_deleted', ['id_user' => $id_user])->row();
+
+    if (!$user_deleted) {
+      $this->session->set_flashdata('error', 'Data user tidak ditemukan di trash bin.');
+      redirect('user/index', 'refresh');
+      return;
+    }
 
     // Simpan data yang dihapus dari trash bin kembali ke tabel utama (tb_user)
     $this->db->insert('tb_user', $user_deleted);

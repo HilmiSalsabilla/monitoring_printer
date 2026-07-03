@@ -141,6 +141,12 @@ class Printer extends Auth_Controller
     
     $printer = $this->db->get_where('tb_printer', ['id_printer' => $id_printer])->row();
 
+    if (!$printer) {
+      $this->session->set_flashdata('error', 'Data printer tidak ditemukan.');
+      redirect('printer/index', 'refresh');
+      return;
+    }
+
     // Simpan data yang dihapus ke trash bin (tb_printer_deleted)
     $this->db->insert('tb_printer_deleted', $printer);
 
@@ -169,6 +175,12 @@ class Printer extends Auth_Controller
     $this->require_admin();
 
     $printer_deleted = $this->db->get_where('tb_printer_deleted', ['id_printer' => $id_printer])->row();
+
+    if (!$printer_deleted) {
+      $this->session->set_flashdata('error', 'Data printer tidak ditemukan di trash bin.');
+      redirect('printer/index', 'refresh');
+      return;
+    }
 
     // Simpan data yang dihapus dari trash bin kembali ke tabel utama (tb_printer)
     $this->db->insert('tb_printer', $printer_deleted);
