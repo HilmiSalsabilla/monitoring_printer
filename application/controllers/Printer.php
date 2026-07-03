@@ -17,6 +17,8 @@ class Printer extends Auth_Controller
 
   public function tambah()
   {
+    $this->require_admin();
+
     $this->load->view('template/header');
 		$this->load->view('template/sidebar');
 		$this->load->view('printer/tambah');
@@ -24,7 +26,9 @@ class Printer extends Auth_Controller
   }
 
   public function store()
-  {  
+  {
+    $this->require_admin();
+
     $this->form_validation->set_rules('device_model', 'Device Model', 'required',[
       'required' => '%s Harus Anda Isi!'
     ]);
@@ -64,6 +68,8 @@ class Printer extends Auth_Controller
 
   public function edit($id_printer)
   {
+    $this->require_admin();
+
     $data['printer'] = $this->db->get_where('tb_printer', ['id_printer' => $id_printer])->row();
 
     $this->load->view('template/header');
@@ -74,6 +80,8 @@ class Printer extends Auth_Controller
 
   public function edit_store()
   {
+		$this->require_admin();
+
 		$id_printer = $this->input->post('id_printer');
     $this->form_validation->set_rules('device_model', 'Device Model', 'required',[
       'required' => '%s Harus Anda Isi!'
@@ -120,6 +128,8 @@ class Printer extends Auth_Controller
 
   public function hapus($id_printer)
   {
+    $this->require_admin();
+
     // $this->db->get_where('tb_printer', ['id_printer' => $id_printer])->row();
     // $this->db->delete('tb_printer', ['id_printer' => $id_printer]);
 
@@ -140,6 +150,8 @@ class Printer extends Auth_Controller
 
   public function trash_bin()
   {
+    $this->require_admin();
+
     $this->load->database();
     $data['trash_bin'] = $this->db->get('tb_printer_deleted')->result();
 
@@ -151,6 +163,8 @@ class Printer extends Auth_Controller
 
   public function restore($id_printer)
   {
+    $this->require_admin();
+
     $printer_deleted = $this->db->get_where('tb_printer_deleted', ['id_printer' => $id_printer])->row();
 
     // Simpan data yang dihapus dari trash bin kembali ke tabel utama (tb_printer)

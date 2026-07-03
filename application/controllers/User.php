@@ -3,6 +3,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         
 class User extends Auth_Controller
 {
+  public function __construct()
+  {
+    parent::__construct();
+    // Entire User-management module is Admin-only.
+    $this->require_admin();
+  }
+
   public function index()
   {
     $this->load->database();
