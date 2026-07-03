@@ -117,10 +117,7 @@ class Printer extends Auth_Controller
 			];
 
 			$this->Printer_model->update($id_printer, $data);
-			$this->session->set_flashdata('pesan',
-      '<div id="pesan" class="alert alert-success" role="alert">
-			Data berhasil di edit!
-      </div>');
+			$this->session->set_flashdata('pesan', 'Data printer berhasil di edit!');
 			redirect('printer','refresh');
     }
   }
@@ -181,7 +178,11 @@ class Printer extends Auth_Controller
     redirect('printer/index', 'refresh');
   }
 
-	// Callback for form_validation: ensures sn_printer is unique so it isn't flagged as a duplicate of itself.
+  /**
+   * Callback for form_validation: ensures sn_printer is unique.
+   * When editing (id_printer present in POST), the record's own current
+   * row is excluded so it isn't flagged as a duplicate of itself.
+   */
   public function check_unique_sn_printer($str)
   {
     $id_printer = $this->input->post('id_printer');
@@ -193,7 +194,10 @@ class Printer extends Auth_Controller
     return TRUE;
   }
 
-  // Callback for form_validation: ensures ip_address is unique.
+  /**
+   * Callback for form_validation: ensures ip_address is unique.
+   * Same self-exclusion behaviour as check_unique_sn_printer().
+   */
   public function check_unique_ip_address($str)
   {
     $id_printer = $this->input->post('id_printer');

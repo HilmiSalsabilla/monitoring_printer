@@ -111,10 +111,7 @@ class User extends Auth_Controller
 			];
 
 			$this->User_model->update($id_user, $data);
-			$this->session->set_flashdata('pesan',
-      '<div id="pesan" class="alert alert-success" role="alert">
-			Data berhasil di edit!
-      </div>');
+			$this->session->set_flashdata('pesan', 'Data user berhasil di edit!');
 			redirect('user','refresh');
     }
   }
@@ -166,7 +163,7 @@ class User extends Auth_Controller
     redirect('user/index', 'refresh');
   }
 
-	// Callback for form_validation: ensures nik is unique so it isn't flagged as a duplicate of itself.
+  // Callback for form_validation: ensures nik is unique so it isn't flagged as a duplicate of itself.
   public function check_unique_nik($str)
   {
     $id_user = $this->input->post('id_user');
@@ -178,7 +175,7 @@ class User extends Auth_Controller
     return TRUE;
   }
 
-	// Callback for form_validation: ensures email is unique.
+  // Callback for form_validation: ensures email is unique.
   public function check_unique_email($str)
   {
     $id_user = $this->input->post('id_user');

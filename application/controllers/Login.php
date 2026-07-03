@@ -38,9 +38,7 @@ class Login extends CI_Controller
 				if (password_verify($password, $user['password'])) {
 						// Password benar
 						$data = [
-								// 'id_user' => $user['id_user'],	
 								'nama' => $user['nama'],
-								//'email' => $user['email'],
 								'nik' => $user['nik'],
 								'level' => $user['level']
 						];
@@ -50,7 +48,6 @@ class Login extends CI_Controller
 						redirect('dashboard', 'refresh');
 					} else {
 						// Password salah
-						// var_dump($user);
 						$this->session->set_flashdata('error', 'Password Anda salah!');
 						redirect('login', 'refresh');
 				}
