@@ -35,11 +35,11 @@ class User extends Auth_Controller
     $this->form_validation->set_rules('nama', 'Nama', 'required',[
       'required' => '%s Harus Anda Isi!'
     ]);
-    $this->form_validation->set_rules('email', 'Email', 'required|valid_email',[
+    $this->form_validation->set_rules('email', 'Email', 'required|valid_email|callback_check_unique_email',[
       'required' => '%s Harus Anda Isi!',
       'valid_email' => '%s Harus berupa alamat email yang valid!'
     ]);
-    $this->form_validation->set_rules('nik', 'NIK', 'required',[
+    $this->form_validation->set_rules('nik', 'NIK', 'required|callback_check_unique_nik',[
       'required' => '%s Harus Anda Isi!'
     ]);
     $this->form_validation->set_rules('password', 'Password', 'required',[
@@ -85,11 +85,11 @@ class User extends Auth_Controller
     $this->form_validation->set_rules('nama', 'Nama', 'required',[
       'required' => '%s Harus Anda Isi!'
     ]);
-    $this->form_validation->set_rules('email', 'Email', 'required|valid_email',[
+    $this->form_validation->set_rules('email', 'Email', 'required|valid_email|callback_check_unique_email',[
       'required' => '%s Harus Anda Isi!',
       'valid_email' => '%s Harus berupa alamat email yang valid!'
     ]);
-    $this->form_validation->set_rules('nik', 'NIK', 'required',[
+    $this->form_validation->set_rules('nik', 'NIK', 'required|callback_check_unique_nik',[
       'required' => '%s Harus Anda Isi!'
     ]);
     $this->form_validation->set_rules('password', 'Password', 'required',[
@@ -170,6 +170,42 @@ class User extends Auth_Controller
 
     $this->session->set_flashdata('sukses', 'Data user berhasil dipulihkan dari trash bin!');
     redirect('user/index', 'refresh');
+  }
+
+  // Callback for form_validation: ensures nik is unique, so it isn't flagged as a duplicate of itself.
+  public function check_unique_nik($str)
+  {
+    $id_user = $this->input->post('id_user');
+
+    $this->db->where('nik', $str);
+    if ($id_user) {
+      $this->db->where('id_user !=', $id_user);
+    }
+    $exists = $this->db->get('tb_user')->row();
+
+    if ($exists) {
+      $this->form_validation->set_message('check_unique_nik', '{field} sudah digunakan oleh user lain!');
+      return FALSE;
+    }
+    return TRUE;
+  }
+
+  // Callback for form_validation: ensures email is unique.
+  public function check_unique_email($str)
+  {
+    $id_user = $this->input->post('id_user');
+
+    $this->db->where('email', $str);
+    if ($id_user) {
+      $this->db->where('id_user !=', $id_user);
+    }
+    $exists = $this->db->get('tb_user')->row();
+
+    if ($exists) {
+      $this->form_validation->set_message('check_unique_email', '{field} sudah digunakan oleh user lain!');
+      return FALSE;
+    }
+    return TRUE;
   }
 
 }
