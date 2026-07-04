@@ -10,14 +10,10 @@
   <link rel="stylesheet" href="<?php echo base_url() ?>/assets/modules/fontawesome/css/all.min.css">
 
   <!-- CSS Libraries -->
-  <link rel="stylesheet" href="<?php echo base_url() ?>/assets/modules/jqvmap/dist/jqvmap.min.css">
-  <link rel="stylesheet" href="<?php echo base_url() ?>/assets/modules/weather-icon/css/weather-icons.min.css">
-  <link rel="stylesheet" href="<?php echo base_url() ?>/assets/modules/weather-icon/css/weather-icons-wind.min.css">
-  <link rel="stylesheet" href="<?php echo base_url() ?>/assets/modules/summernote/summernote-bs4.css">
+  <link rel="stylesheet" href="<?php echo base_url() ?>/assets/modules/izitoast/css/iziToast.min.css">
 
-  <!-- Template CSS -->
-  <link rel="stylesheet" href="<?php echo base_url() ?>/assets/css/style.css">
-  <link rel="stylesheet" href="<?php echo base_url() ?>/assets/css/components.css">
+  <!-- Modern Theme CSS -->
+  <link rel="stylesheet" href="<?php echo base_url() ?>/assets/css/modern-theme.css">
 
   <!-- Start GA -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
@@ -29,29 +25,30 @@
 
   gtag('config', 'UA-94034622-3');
   </script>
-  <!-- /END GA --></head>
+  <!-- /END GA -->
+</head>
 
 <body>
-  <div id="app">
-    <div class="main-wrapper main-wrapper-1">
-      <div class="navbar-bg" style='background-color:#c3271f'></div>
-      <nav class="navbar navbar-expand-lg main-navbar">
-        <form class="form-inline mr-auto">
-          <ul class="navbar-nav mr-3" sty>
-            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
-            <!-- <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li> -->
-          </ul>
-        </form>
+  <div class="app-shell" id="appShell">
 
-        <ul class="navbar-nav navbar-right" >
-          <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-            <img alt="image" src="assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-            <div class="d-sm-none d-lg-inline-block">Hi, <?php echo $this->session->userdata('nama') ?></div></a>
-            <div class="dropdown-menu dropdown-menu-right" style="background-color: #c3271f;">
-              <a href="<?php echo base_url('logout') ?>" class="dropdown-item has-icon text-dark">
-                <i class="fas fa-sign-out-alt"></i> Logout
-              </a>
-            </div>
-          </li>
-        </ul>
-      </nav>
+    <!-- Sidebar overlay (mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <button type="button" class="topbar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="topbar-spacer"></div>
+      <div class="dropdown">
+        <a href="#" data-toggle="dropdown" class="topbar-user-link dropdown-toggle">
+          <span class="avatar-circle"><?php echo strtoupper(substr($this->session->userdata('nama'), 0, 1)) ?></span>
+          <span class="topbar-user-name d-none d-sm-inline">Hi, <?php echo $this->session->userdata('nama') ?></span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right topbar-dropdown">
+          <a href="<?php echo base_url('logout') ?>" class="dropdown-item">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </a>
+        </div>
+      </div>
+    </header>
