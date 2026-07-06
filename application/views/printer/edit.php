@@ -1,50 +1,57 @@
-<main class="main-content">
-  <div class="page-header">
-    <div>
-      <span class="page-eyebrow">Printer</span>
-      <h1>Edit Data Printer</h1>
-    </div>
-    <a href="<?php echo base_url('printer') ?>" class="btn btn-warning btn-md">
-      <i class="fas fa-arrow-left mr-1"></i> Kembali
-    </a>
-  </div>
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<main id="konten-utama" class="p-4 sm:p-6 lg:p-8">
+	<header class="mb-6 flex flex-wrap items-center justify-between gap-4">
+		<div>
+			<p class="page-eyebrow">Printer</p>
+			<h1>Edit Data Printer</h1>
+		</div>
+		<a class="btn-secondary" href="<?php echo base_url('printer') ?>">
+			<i class="fas fa-arrow-left" aria-hidden="true"></i> Kembali
+		</a>
+	</header>
 
-  <div class="card">
-    <div class="card-body">
-      <form action="<?php echo base_url('printer-edit') ?>" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
-        <input type="hidden" name="id_printer" value="<?php echo $printer->id_printer ?>">
-        <div class="form-group">
-          <label>Device Model</label>
-          <input type="text" name="device_model" class="form-control" value="<?php echo $printer->device_model ?>">
-          <i class="text-danger"><?php echo form_error('device_model') ?></i>
-        </div>
-        <div class="form-group">
-          <label>SN Printer</label>
-          <input type="text" name="sn_printer" class="form-control" value="<?php echo $printer->sn_printer ?>">
-          <i class="text-danger"><?php echo form_error('sn_printer') ?></i>
-        </div>
-        <div class="form-group">
-          <label>IP Address</label>
-          <input type="text" name="ip_address" class="form-control" value="<?php echo $printer->ip_address ?>">
-          <i class="text-danger"><?php echo form_error('ip_address') ?></i>
-        </div>
-        <div class="form-group">
-          <label>Hostname</label>
-          <input type="text" name="hostname" class="form-control" value="<?php echo $printer->hostname ?>">
-          <i class="text-danger"><?php echo form_error('hostname') ?></i>
-        </div>
-        <div class="form-group">
-          <label>Lokasi</label>
-          <input type="text" name="lokasi" class="form-control" value="<?php echo $printer->lokasi ?>">
-          <i class="text-danger"><?php echo form_error('lokasi') ?></i>
-        </div>
-        <div>
-          <button type="submit" class="btn btn-danger btn-md">
-            <i class="fas fa-save mr-1"></i> Simpan Data
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
+	<section class="card max-w-2xl">
+		<form action="<?php echo base_url('printer-edit') ?>" method="POST" enctype="multipart/form-data">
+			<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
+			<input type="hidden" name="id_printer" value="<?php echo $printer->id_printer ?>">
+
+			<fieldset>
+				<legend class="mb-4 text-sm font-semibold text-slate-900">Data Printer</legend>
+
+				<div class="field">
+					<label for="device_model">Device Model</label>
+					<input id="device_model" type="text" name="device_model" value="<?php echo $printer->device_model ?>" aria-describedby="device_model-error">
+					<i id="device_model-error" class="field-error" role="alert"><?php echo form_error('device_model') ?></i>
+				</div>
+
+				<div class="field">
+					<label for="sn_printer">SN Printer</label>
+					<input id="sn_printer" type="text" name="sn_printer" value="<?php echo $printer->sn_printer ?>" aria-describedby="sn_printer-error">
+					<i id="sn_printer-error" class="field-error" role="alert"><?php echo form_error('sn_printer') ?></i>
+				</div>
+
+				<div class="field">
+					<label for="ip_address">IP Address</label>
+					<input id="ip_address" type="text" name="ip_address" value="<?php echo $printer->ip_address ?>" aria-describedby="ip_address-error">
+					<i id="ip_address-error" class="field-error" role="alert"><?php echo form_error('ip_address') ?></i>
+				</div>
+
+				<div class="field">
+					<label for="hostname">Hostname</label>
+					<input id="hostname" type="text" name="hostname" value="<?php echo $printer->hostname ?>" aria-describedby="hostname-error">
+					<i id="hostname-error" class="field-error" role="alert"><?php echo form_error('hostname') ?></i>
+				</div>
+
+				<div class="field">
+					<label for="lokasi">Lokasi</label>
+					<input id="lokasi" type="text" name="lokasi" value="<?php echo $printer->lokasi ?>" aria-describedby="lokasi-error">
+					<i id="lokasi-error" class="field-error" role="alert"><?php echo form_error('lokasi') ?></i>
+				</div>
+			</fieldset>
+
+			<button type="submit" class="btn-primary">
+				<i class="fas fa-floppy-disk" aria-hidden="true"></i> Simpan Data
+			</button>
+		</form>
+	</section>
 </main>

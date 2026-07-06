@@ -1,48 +1,69 @@
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-brand">
-        <a href="<?php echo base_url(); ?>">
-          <span class="brand-mark">MP</span>
-          <span class="brand-text">Monitoring Printer
-            <small>PT. Semen Padang</small>
-          </span>
-        </a>
-      </div>
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-      <nav class="sidebar-nav">
-        <ul>
-          <?php if ($this->session->userdata('level') == 'Admin'): ?>
-          <li class="<?php echo $this->uri->segment(1) == 'dashboard' ? 'active' : ''; ?>">
-            <a href="<?php echo base_url('dashboard'); ?>">
-              <i class="fas fa-chart-pie"></i><span>Dashboard</span>
-            </a>
-          </li>
-          <li class="<?php echo $this->uri->segment(1) == 'user' ? 'active' : ''; ?>">
-            <a href="<?php echo base_url('user'); ?>">
-              <i class="far fa-user"></i><span>User</span>
-            </a>
-          </li>
-          <li class="<?php echo $this->uri->segment(1) == 'printer' ? 'active' : ''; ?>">
-            <a href="<?php echo base_url('printer'); ?>">
-              <i class="fas fa-print"></i><span>Printer</span>
-            </a>
-          </li>
-          <?php endif; ?>
-          <?php if ($this->session->userdata('level') == 'User'): ?>
-          <li class="<?php echo $this->uri->segment(1) == 'dashboard' ? 'active' : ''; ?>">
-            <a href="<?php echo base_url('dashboard'); ?>">
-              <i class="fas fa-chart-pie"></i><span>Dashboard</span>
-            </a>
-          </li>
-          <li class="<?php echo $this->uri->segment(1) == 'printer' ? 'active' : ''; ?>">
-            <a href="<?php echo base_url('printer'); ?>">
-              <i class="fas fa-print"></i><span>Printer</span>
-            </a>
-          </li>
-          <?php endif; ?>
-        </ul>
-      </nav>
+$current_segment = $this->uri->segment(1);
+$level           = $this->session->userdata('level');
 
-      <div class="sidebar-footer">
-        &copy; <?php echo date('Y') ?> PT. Semen Padang
-      </div>
-    </aside>
+// Build the nav items for the current role once, instead of repeating the
+// same <li> markup twice with two near-identical if-blocks.
+$nav_items = [];
+
+if ($level === 'Admin' || $level === 'User') {
+	$nav_items[] = [
+		'segment' => 'dashboard',
+		'url'     => base_url('dashboard'),
+		'icon'    => 'fa-gauge',
+		'label'   => 'Dashboard',
+	];
+}
+
+if ($level === 'Admin') {
+	$nav_items[] = [
+		'segment' => 'user',
+		'url'     => base_url('user'),
+		'icon'    => 'fa-users',
+		'label'   => 'User',
+	];
+}
+
+if ($level === 'Admin' || $level === 'User') {
+	$nav_items[] = [
+		'segment' => 'printer',
+		'url'     => base_url('printer'),
+		'icon'    => 'fa-print',
+		'label'   => 'Printer',
+	];
+}
+?>
+			<aside
+				id="sidebar-navigasi"
+				class="fixed inset-y-0 left-0 z-40 flex w-64 -translate-x-full flex-col border-r border-slate-200 bg-white transition-transform duration-200 ease-in-out lg:sticky lg:top-0 lg:h-screen lg:translate-x-0"
+				data-sidebar
+			>
+				<a class="flex h-16 shrink-0 items-center gap-3 border-b border-slate-200 px-5" href="<?php echo base_url(); ?>" aria-label="Monitoring Printer PT. Semen Padang - Beranda">
+					<span class="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600 text-sm font-bold text-white" aria-hidden="true">MP</span>
+					<span class="leading-tight">
+						<span class="block text-sm font-semibold text-slate-900">Monitoring Printer</span>
+						<span class="block text-xs text-slate-500">PT. Semen Padang</span>
+					</span>
+				</a>
+
+				<nav class="flex-1 space-y-1 overflow-y-auto px-3 py-4" aria-label="Navigasi utama">
+					<?php foreach ($nav_items as $item): ?>
+						<?php $is_active = ($current_segment === $item['segment']); ?>
+						<a
+							href="<?php echo $item['url']; ?>"
+							<?php echo $is_active ? 'aria-current="page"' : ''; ?>
+							class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors
+								<?php echo $is_active
+									? 'bg-brand-50 text-brand-700'
+									: 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'; ?>"
+						>
+							<i class="fas <?php echo $item['icon']; ?> w-4 text-center <?php echo $is_active ? 'text-brand-600' : 'text-slate-400'; ?>" aria-hidden="true"></i>
+							<span><?php echo $item['label']; ?></span>
+						</a>
+					<?php endforeach; ?>
+				</nav>
+			</aside>
+
+			<div class="min-w-0 flex-1">

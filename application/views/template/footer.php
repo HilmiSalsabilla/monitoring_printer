@@ -1,38 +1,45 @@
-    <footer class="app-footer">
-      Copyright &copy; <?php echo date('Y') ?> &middot; <strong>Monitoring Printer</strong> PT. Semen Padang
-    </footer>
-  </div><!-- /.app-shell -->
+			<footer class="border-t border-slate-200 px-4 py-6 sm:px-6 lg:px-8">
+					<p class="text-center text-sm text-slate-500">
+						Copyright &copy; <?php echo date('Y') ?> &middot; <strong class="font-medium text-slate-700">Monitoring Printer</strong> PT. Semen Padang
+					</p>
+				</footer>
 
-  <!-- General JS Scripts -->
-  <script src="<?php echo base_url() ?>/assets/modules/jquery.min.js"></script>
-  <script src="<?php echo base_url() ?>/assets/modules/popper.js"></script>
-  <script src="<?php echo base_url() ?>/assets/modules/bootstrap/js/bootstrap.min.js"></script>
+			</div><!-- /.min-w-0.flex-1 (content column) -->
+		</div><!-- /.flex (sidebar + content row) -->
+	</div><!-- /.min-h-screen -->
 
-  <!-- JS Libraries -->
-  <script src="<?php echo base_url() ?>/assets/modules/izitoast/js/iziToast.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/izitoast@1.4.0/dist/js/iziToast.min.js"></script>
+	<script src="<?php echo base_url('assets/js/app.js'); ?>"></script>
 
-  <!-- Modern Theme JS -->
-  <script src="<?php echo base_url() ?>/assets/js/modern-app.js"></script>
+	<?php if ($this->session->flashdata('pesan')) : ?>
+		<script>
+			iziToast.success({
+				title: 'Welcome!',
+				message: '<?php echo addslashes($this->session->flashdata('pesan')); ?>',
+				position: 'topRight'
+			});
+		</script>
+	<?php endif; ?>
 
-  <?php if($this->session->flashdata('pesan')) : ?>
-  <script type="">
-  iziToast.success({
-    title: 'Welcome!',
-    message: '<?php echo $this->session->flashdata('pesan'); ?>',
-    position: 'topRight'
-    });
-  </script>
-<?php endif; ?>
+	<?php if ($this->session->flashdata('sukses')) : ?>
+		<script>
+			iziToast.success({
+				title: 'Berhasil!',
+				message: '<?php echo addslashes($this->session->flashdata('sukses')); ?>',
+				position: 'topRight'
+			});
+		</script>
+	<?php endif; ?>
 
-<?php if($this->session->flashdata('sukses')) : ?>
-  <script type="">
-  iziToast.success({
-    title: 'Berhasil!',
-    message: '<?php echo $this->session->flashdata('sukses'); ?>',
-    position: 'topRight'
-    });
-  </script>
-<?php endif; ?>
+	<?php if ($this->session->flashdata('error')) : ?>
+		<script>
+			iziToast.error({
+				title: 'Gagal!',
+				message: '<?php echo addslashes($this->session->flashdata('error')); ?>',
+				position: 'topRight'
+			});
+		</script>
+	<?php endif; ?>
 
 </body>
 </html>

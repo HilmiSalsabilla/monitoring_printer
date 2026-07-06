@@ -1,115 +1,123 @@
-<main class="main-content">
-  <div class="page-header">
-    <div>
-      <span class="page-eyebrow">Manajemen</span>
-      <h1>Kelola Printer</h1>
-    </div>
-  </div>
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<main id="konten-utama" class="p-4 sm:p-6 lg:p-8">
+	<header class="mb-6">
+		<p class="page-eyebrow">Manajemen</p>
+		<h1>Kelola Printer</h1>
+	</header>
 
-  <div class="card">
-    <div class="card-body">
+	<section>
+		<div data-tabs>
+			<div role="tablist" aria-label="Data printer">
+				<button type="button" role="tab" id="tab-data-printer-link" aria-controls="tab-data-printer" aria-selected="true">
+					Data Printer
+				</button>
+				<button type="button" role="tab" id="tab-trash-bin-link" aria-controls="tab-trash-bin" aria-selected="false" tabindex="-1">
+					Trash Bin
+				</button>
+			</div>
 
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Data Printer</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Trash Bin</a>
-        </li>
-      </ul>
-      <div class="tab-content" id="myTabContent">
-        <!-- Tab "Data Printer" -->
-        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-          <?php if ($this->session->userdata('level') == 'Admin'): ?>
-          <a href="<?php echo base_url('printer-tambah') ?>" class="btn btn-danger btn-md mb-3">
-            <i class="fas fa-plus mr-1"></i> Tambah Data Printer
-          </a>
-          <?php endif; ?>
-          <div class="table-wrap">
-            <table class="table table-md table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">No</th>
-                  <th scope="col">Device Model</th>
-                  <th scope="col">SN Printer</th>
-                  <th scope="col">IP Address</th>
-                  <th scope="col">Hostname</th>
-                  <th scope="col">Lokasi</th>
-                  <?php if ($this->session->userdata('level') == 'Admin'): ?>
-                  <th scope="col">Aksi</th>
-                  <?php endif; ?>
-                </tr>
-              </thead>
-              <tbody>
-                <?php foreach ($printer as $key => $value): ?>
-                <tr>
-                  <td><?php echo $key+1 ?></td>
-                  <td><?php echo $value->device_model ?></td>
-                  <td><?php echo $value->sn_printer ?></td>
-                  <td><?php echo $value->ip_address ?></td>
-                  <td><?php echo $value->hostname ?></td>
-                  <td><?php echo $value->lokasi ?></td>
-                  <td>
-                    <?php if ($this->session->userdata('level') == 'Admin'): ?>
-                    <a href="<?php echo base_url('printer-edit/'. $value->id_printer); ?>" class="btn btn-warning btn-sm">Edit</a>
-                    <a href="<?php echo base_url('printer-hapus/'. $value->id_printer); ?>" class="btn btn-dark btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus printer ini?')">Hapus</a>
-                    <?php endif; ?>
-                  </td>
-                </tr>
-                <?php endforeach; ?>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <!-- Tab "Trash Bin" -->
-        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-          <?php if ($this->session->userdata('level') == 'Admin'): ?>
-          <?php if (!empty($trash_bin)) : ?>
-            <div class="table-wrap">
-              <table class="table table-md table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Device Model</th>
-                    <th scope="col">SN Printer</th>
-                    <th scope="col">IP Address</th>
-                    <th scope="col">Hostname</th>
-                    <th scope="col">Lokasi</th>
-                    <th scope="col">Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php foreach ($trash_bin as $key => $value): ?>
-                  <tr>
-                    <td><?php echo $key+1 ?></td>
-                    <td><?php echo $value->device_model ?></td>
-                    <td><?php echo $value->sn_printer ?></td>
-                    <td><?php echo $value->ip_address ?></td>
-                    <td><?php echo $value->hostname ?></td>
-                    <td><?php echo $value->lokasi ?></td>
-                    <td>
-                      <a href="<?php echo base_url('printer-restore/'. $value->id_printer); ?>" class="btn btn-dark btn-sm" onclick="return confirm('Apakah Anda yakin ingin mengembalikan data printer ini?')">Restore</a>
-                    </td>
-                  </tr>
-                  <?php endforeach; ?>
-                </tbody>
-              </table>
-            </div>
-          <?php else : ?>
-            <div class="empty-state">
-              <i class="fas fa-box-open"></i>
-              Tidak ada data di Trash Bin.
-            </div>
-          <?php endif; ?>
-          <?php else : ?>
-            <div class="empty-state">
-              <i class="fas fa-lock"></i>
-              Anda tidak memiliki akses untuk melihat Data Trash Bin.
-            </div>
-          <?php endif; ?>
-        </div>
-      </div>
+			<!-- Tab "Data Printer" -->
+			<section id="tab-data-printer" role="tabpanel" aria-labelledby="tab-data-printer-link">
+				<?php if ($this->session->userdata('level') == 'Admin'): ?>
+					<div class="mb-4">
+						<a class="btn-primary" href="<?php echo base_url('printer-tambah') ?>">
+							<i class="fas fa-plus" aria-hidden="true"></i> Tambah Data Printer
+						</a>
+					</div>
+				<?php endif; ?>
 
-    </div>
-  </div>
+				<div class="data-table-wrap">
+					<table class="data-table">
+						<caption>Daftar printer terdaftar</caption>
+						<thead>
+							<tr>
+								<th scope="col">No</th>
+								<th scope="col">Device Model</th>
+								<th scope="col">SN Printer</th>
+								<th scope="col">IP Address</th>
+								<th scope="col">Hostname</th>
+								<th scope="col">Lokasi</th>
+								<?php if ($this->session->userdata('level') == 'Admin'): ?>
+									<th scope="col">Aksi</th>
+								<?php endif; ?>
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach ($printer as $key => $value): ?>
+								<tr>
+									<td><?php echo $key + 1 ?></td>
+									<td><?php echo $value->device_model ?></td>
+									<td><?php echo $value->sn_printer ?></td>
+									<td><?php echo $value->ip_address ?></td>
+									<td><?php echo $value->hostname ?></td>
+									<td><?php echo $value->lokasi ?></td>
+									<?php if ($this->session->userdata('level') == 'Admin'): ?>
+										<td class="space-x-3 whitespace-nowrap">
+											<a class="link-action" href="<?php echo base_url('printer-edit/' . $value->id_printer); ?>">
+												Edit<span class="sr-only"> data printer <?php echo htmlspecialchars($value->device_model, ENT_QUOTES, 'UTF-8'); ?></span>
+											</a>
+											<a class="link-action-danger" href="<?php echo base_url('printer-hapus/' . $value->id_printer); ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus printer ini?')">
+												Hapus<span class="sr-only"> data printer <?php echo htmlspecialchars($value->device_model, ENT_QUOTES, 'UTF-8'); ?></span>
+											</a>
+										</td>
+									<?php endif; ?>
+								</tr>
+							<?php endforeach; ?>
+						</tbody>
+					</table>
+				</div>
+			</section>
+
+			<!-- Tab "Trash Bin" -->
+			<section id="tab-trash-bin" role="tabpanel" aria-labelledby="tab-trash-bin-link" hidden>
+				<?php if ($this->session->userdata('level') == 'Admin'): ?>
+					<?php if (!empty($trash_bin)) : ?>
+						<div class="data-table-wrap">
+							<table class="data-table">
+								<caption>Printer yang telah dihapus</caption>
+								<thead>
+									<tr>
+										<th scope="col">No</th>
+										<th scope="col">Device Model</th>
+										<th scope="col">SN Printer</th>
+										<th scope="col">IP Address</th>
+										<th scope="col">Hostname</th>
+										<th scope="col">Lokasi</th>
+										<th scope="col">Aksi</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php foreach ($trash_bin as $key => $value): ?>
+										<tr>
+											<td><?php echo $key + 1 ?></td>
+											<td><?php echo $value->device_model ?></td>
+											<td><?php echo $value->sn_printer ?></td>
+											<td><?php echo $value->ip_address ?></td>
+											<td><?php echo $value->hostname ?></td>
+											<td><?php echo $value->lokasi ?></td>
+											<td class="whitespace-nowrap">
+												<a class="link-action" href="<?php echo base_url('printer-restore/' . $value->id_printer); ?>" onclick="return confirm('Apakah Anda yakin ingin mengembalikan data printer ini?')">
+													Restore<span class="sr-only"> data printer <?php echo htmlspecialchars($value->device_model, ENT_QUOTES, 'UTF-8'); ?></span>
+												</a>
+											</td>
+										</tr>
+									<?php endforeach; ?>
+								</tbody>
+							</table>
+						</div>
+					<?php else : ?>
+						<p class="empty-state">
+							<i class="fas fa-inbox" aria-hidden="true"></i>
+							Tidak ada data di Trash Bin.
+						</p>
+					<?php endif; ?>
+				<?php else : ?>
+					<p class="empty-state">
+						<i class="fas fa-lock" aria-hidden="true"></i>
+						Anda tidak memiliki akses untuk melihat Data Trash Bin.
+					</p>
+				<?php endif; ?>
+			</section>
+		</div>
+	</section>
 </main>
