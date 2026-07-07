@@ -8,15 +8,15 @@
   }
 
   body {
-    @apply bg-slate-50 text-slate-800 antialiased;
+    @apply bg-ink-50 text-ink-800 antialiased;
   }
 
   h1 {
-    @apply text-2xl font-semibold text-slate-900;
+    @apply text-2xl font-semibold text-ink-900;
   }
 
   h2 {
-    @apply text-lg font-semibold text-slate-900;
+    @apply text-lg font-semibold text-ink-900;
   }
 }
 
@@ -24,7 +24,7 @@
   /* Accessibility */
   .skip-link {
     @apply sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100]
-           focus:rounded-lg focus:bg-slate-900 focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-white;
+           focus:rounded-lg focus:bg-ink-900 focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-white;
   }
 
   /* Buttons */
@@ -38,12 +38,12 @@
   }
 
   .btn-secondary {
-    @apply btn border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 focus-visible:ring-slate-400;
+    @apply btn border border-ink-300 bg-white text-ink-700 hover:bg-ink-50 focus-visible:ring-ink-400;
   }
 
   .btn-icon-only {
-    @apply inline-flex h-10 w-10 items-center justify-center rounded-lg text-slate-500
-           hover:bg-slate-100 hover:text-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500;
+    @apply inline-flex h-10 w-10 items-center justify-center rounded-lg text-ink-500
+           hover:bg-ink-100 hover:text-ink-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500;
   }
 
   /* Row-level text links (edit / hapus / restore) */
@@ -61,16 +61,16 @@
   }
 
   .field > label {
-    @apply text-sm font-medium text-slate-700;
+    @apply text-sm font-medium text-ink-700;
   }
 
   .field > input {
-    @apply rounded-lg border-slate-300 text-sm shadow-sm
+    @apply rounded-lg border-ink-300 text-sm shadow-sm
            focus:border-brand-500 focus:ring-brand-500;
   }
 
   .field-hint {
-    @apply text-xs text-slate-500;
+    @apply text-xs text-ink-500;
   }
 
   .field-error {
@@ -83,19 +83,19 @@
 
   /* Cards / surfaces */
   .card {
-    @apply rounded-xl border border-slate-200 bg-white p-6 shadow-sm;
+    @apply rounded-xl border border-ink-200 bg-white p-6 shadow-sm;
   }
 
   .stat-card {
-    @apply flex flex-col gap-1 rounded-xl border border-slate-200 bg-white p-6 shadow-sm;
+    @apply flex flex-col gap-1 rounded-xl border border-ink-200 bg-white p-6 shadow-sm;
   }
 
   .stat-card > dt {
-    @apply text-sm font-medium text-slate-500;
+    @apply text-sm font-medium text-ink-500;
   }
 
   .stat-card > dd {
-    @apply text-3xl font-semibold text-slate-900;
+    @apply text-3xl font-semibold text-ink-900;
   }
 
   /* Badges */
@@ -108,7 +108,7 @@
   }
 
   .badge-dark {
-    @apply badge bg-slate-200 text-slate-700;
+    @apply badge bg-ink-900 text-white;
   }
 
   /* Page header */
@@ -118,7 +118,7 @@
 
   /* Empty state */
   .empty-state {
-    @apply flex items-center gap-2 rounded-lg border border-dashed border-slate-300 bg-slate-50 px-4 py-6 text-sm text-slate-500;
+    @apply flex items-center gap-2 rounded-lg border border-dashed border-ink-300 bg-ink-50 px-4 py-6 text-sm text-ink-500;
   }
 
   /* Tables */
@@ -131,29 +131,29 @@
   }
 
   .data-table th {
-    @apply whitespace-nowrap border-b border-slate-200 bg-slate-50 px-4 py-3 font-semibold text-slate-600;
+    @apply whitespace-nowrap border-b border-ink-200 bg-ink-50 px-4 py-3 font-semibold text-ink-600;
   }
 
   .data-table td {
-    @apply border-b border-slate-100 px-4 py-3 align-middle text-slate-700;
+    @apply border-b border-ink-100 px-4 py-3 align-middle text-ink-700;
   }
 
   .data-table tbody tr:hover {
-    @apply bg-slate-50;
+    @apply bg-ink-50;
   }
 
   .data-table-wrap {
-    @apply overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm;
+    @apply overflow-x-auto rounded-xl border border-ink-200 bg-white shadow-sm;
   }
 
   /* Tabs */
   [role='tablist'] {
-    @apply mb-6 flex gap-1 border-b border-slate-200;
+    @apply mb-6 flex gap-1 border-b border-ink-200;
   }
 
   [role='tab'] {
-    @apply -mb-px border-b-2 border-transparent px-4 py-2.5 text-sm font-medium text-slate-500
-           hover:text-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2;
+    @apply -mb-px border-b-2 border-transparent px-4 py-2.5 text-sm font-medium text-ink-500
+           hover:text-ink-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2;
   }
 
   [role='tab'][aria-selected='true'] {

@@ -15,7 +15,7 @@
 			<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
 
 			<fieldset>
-				<legend class="mb-4 text-sm font-semibold text-slate-900">Data Printer Baru</legend>
+				<legend class="mb-4 text-sm font-semibold text-ink-900">Data Printer Baru</legend>
 
 				<div class="field">
 					<label for="device_model">Device Model</label>

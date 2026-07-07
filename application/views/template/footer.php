@@ -1,6 +1,6 @@
-			<footer class="border-t border-slate-200 px-4 py-6 sm:px-6 lg:px-8">
-					<p class="text-center text-sm text-slate-500">
-						Copyright &copy; <?php echo date('Y') ?> &middot; <strong class="font-medium text-slate-700">Monitoring Printer</strong> PT. Semen Padang
+			<footer class="border-t border-ink-200 px-4 py-6 sm:px-6 lg:px-8">
+					<p class="text-center text-sm text-ink-500">
+						Copyright &copy; <?php echo date('Y') ?> &middot; <strong class="font-medium text-ink-700">Monitoring Printer</strong> PT. Semen Padang
 					</p>
 				</footer>
 

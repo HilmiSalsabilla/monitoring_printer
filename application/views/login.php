@@ -14,26 +14,26 @@
 	<link rel="stylesheet" href="<?php echo base_url('assets/css/style.css'); ?>">
 </head>
 
-<body class="min-h-screen bg-slate-50 text-slate-800">
+<body class="min-h-screen bg-ink-50 text-ink-800">
 	<div class="grid min-h-screen lg:grid-cols-2">
 
-		<aside class="relative hidden flex-col justify-between overflow-hidden bg-brand-900 p-10 text-white lg:flex" aria-label="Tentang Monitoring Printer">
+		<aside class="relative hidden flex-col justify-between overflow-hidden bg-ink-900 p-10 text-white lg:flex" aria-label="Tentang Monitoring Printer">
 			<span class="flex h-11 w-11 items-center justify-center rounded-lg bg-white/10 text-sm font-bold" aria-hidden="true">MP</span>
 
 			<div>
 				<p class="text-3xl font-semibold leading-tight">Pantau seluruh printer perusahaan dalam satu dashboard.</p>
-				<p class="mt-4 max-w-md text-brand-100">Sistem monitoring printer PT. Semen Padang &mdash; kelola perangkat, lokasi, dan pengguna secara real-time.</p>
+				<p class="mt-4 max-w-md text-ink-300">Sistem monitoring printer PT. Semen Padang &mdash; kelola perangkat, lokasi, dan pengguna secara real-time.</p>
 			</div>
 
-			<p class="text-sm text-brand-200">&copy; <?php echo date('Y') ?> PT. Semen Padang. All rights reserved.</p>
+			<p class="text-sm text-ink-400">&copy; <?php echo date('Y') ?> PT. Semen Padang. All rights reserved.</p>
 		</aside>
 
 		<main class="flex flex-col justify-center px-6 py-12 sm:px-12 lg:px-16">
 			<div class="mx-auto w-full max-w-sm">
-				<!-- <img class="mb-8 h-12 w-auto items-center" src="<?php echo base_url() ?>assets/img/logo.jpeg" alt="Logo PT. Semen Padang"> -->
+				<!-- <img class="mb-8 h-12 w-auto" src="<?php echo base_url('assets/img/logo.jpeg') ?>" alt="Logo PT. Semen Padang"> -->
 
 				<h1>Selamat Datang</h1>
-				<p class="mt-1 text-sm text-slate-500">Masuk untuk melanjutkan ke Monitoring Printer</p>
+				<p class="mt-1 text-sm text-ink-500">Masuk untuk melanjutkan ke Monitoring Printer</p>
 
 				<?php if (validation_errors()) : ?>
 					<div class="form-alert mt-6" role="alert">
@@ -65,6 +65,12 @@
 
 					<button type="submit" tabindex="3" class="btn-primary w-full justify-center">Login</button>
 				</form>
+
+				<footer class="mt-10">
+					<p class="text-center text-xs text-ink-400">
+						Copyright &copy; <?php echo date('Y') ?> &middot; <strong class="font-medium text-ink-500">Monitoring Printer</strong> PT. Semen Padang
+					</p>
+				</footer>
 			</div>
 		</main>
 

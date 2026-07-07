@@ -12,7 +12,7 @@
 			aria-label="Sambutan"
 		>
 			<h2 class="text-white">Selamat Datang, <?php echo htmlspecialchars($this->session->userdata('nama'), ENT_QUOTES, 'UTF-8') ?></h2>
-			<p class="text-slate-200">Salam hangat dari hati yang berbunga-bunga!</p>
+			<p class="text-ink-200">Salam hangat dari hati yang berbunga-bunga!</p>
 		</section>
 	<?php endif; ?>
 

@@ -16,7 +16,7 @@
 			<input type="hidden" name="id_printer" value="<?php echo $printer->id_printer ?>">
 
 			<fieldset>
-				<legend class="mb-4 text-sm font-semibold text-slate-900">Data Printer</legend>
+				<legend class="mb-4 text-sm font-semibold text-ink-900">Data Printer</legend>
 
 				<div class="field">
 					<label for="device_model">Device Model</label>

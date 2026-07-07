@@ -37,14 +37,14 @@ if ($level === 'Admin' || $level === 'User') {
 ?>
 			<aside
 				id="sidebar-navigasi"
-				class="fixed inset-y-0 left-0 z-40 flex w-64 -translate-x-full flex-col border-r border-slate-200 bg-white transition-transform duration-200 ease-in-out lg:sticky lg:top-0 lg:h-screen lg:translate-x-0"
+				class="fixed inset-y-0 left-0 z-40 flex w-64 -translate-x-full flex-col border-r border-ink-800 bg-ink-900 transition-transform duration-200 ease-in-out lg:sticky lg:top-0 lg:h-screen lg:translate-x-0"
 				data-sidebar
 			>
-				<a class="flex h-16 shrink-0 items-center gap-3 border-b border-slate-200 px-5" href="<?php echo base_url(); ?>" aria-label="Monitoring Printer PT. Semen Padang - Beranda">
+				<a class="flex h-16 shrink-0 items-center gap-3 border-b border-ink-800 px-5" href="<?php echo base_url(); ?>" aria-label="Monitoring Printer PT. Semen Padang - Beranda">
 					<span class="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600 text-sm font-bold text-white" aria-hidden="true">MP</span>
 					<span class="leading-tight">
-						<span class="block text-sm font-semibold text-slate-900">Monitoring Printer</span>
-						<span class="block text-xs text-slate-500">PT. Semen Padang</span>
+						<span class="block text-sm font-semibold text-white">Monitoring Printer</span>
+						<span class="block text-xs text-ink-400">PT. Semen Padang</span>
 					</span>
 				</a>
 
@@ -56,10 +56,10 @@ if ($level === 'Admin' || $level === 'User') {
 							<?php echo $is_active ? 'aria-current="page"' : ''; ?>
 							class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors
 								<?php echo $is_active
-									? 'bg-brand-50 text-brand-700'
-									: 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'; ?>"
+									? 'bg-brand-600 text-white'
+									: 'text-ink-300 hover:bg-ink-800 hover:text-white'; ?>"
 						>
-							<i class="fas <?php echo $item['icon']; ?> w-4 text-center <?php echo $is_active ? 'text-brand-600' : 'text-slate-400'; ?>" aria-hidden="true"></i>
+							<i class="fas <?php echo $item['icon']; ?> w-4 text-center <?php echo $is_active ? 'text-white' : 'text-ink-400'; ?>" aria-hidden="true"></i>
 							<span><?php echo $item['label']; ?></span>
 						</a>
 					<?php endforeach; ?>

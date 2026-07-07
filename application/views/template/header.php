@@ -7,8 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $page_title = isset($page_title) && $page_title !== ''
 	? $page_title . ' - Monitoring Printer PT. Semen Padang'
 	: 'Monitoring Printer PT. Semen Padang';
-?>
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="id">
 <head>
 	<meta charset="UTF-8">
@@ -27,14 +26,14 @@ $page_title = isset($page_title) && $page_title !== ''
 	<link rel="stylesheet" href="<?php echo base_url('assets/css/style.css'); ?>">
 </head>
 
-<body class="h-full bg-slate-50 text-slate-800">
+<body class="h-full bg-ink-50 text-ink-800">
 
 	<!-- Lets keyboard/screen-reader users bypass the sidebar and jump straight to the page content. -->
 	<a class="skip-link" href="#konten-utama">Langsung ke konten utama</a>
 
 	<div class="min-h-screen">
 
-		<header class="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200 bg-white px-4 sm:px-6">
+		<header class="sticky top-0 z-30 flex h-16 items-center justify-between border-b-2 border-brand-600 bg-white px-4 sm:px-6">
 			<button type="button" class="btn-icon-only lg:hidden" aria-label="Buka atau tutup menu navigasi" aria-controls="sidebar-navigasi" aria-expanded="false" data-sidebar-toggle>
 				<i class="fas fa-bars" aria-hidden="true"></i>
 			</button>
@@ -44,7 +43,7 @@ $page_title = isset($page_title) && $page_title !== ''
 					<span class="flex h-8 w-8 items-center justify-center rounded-full bg-brand-100 text-sm font-semibold text-brand-700" aria-hidden="true">
 						<?php echo strtoupper(substr($this->session->userdata('nama'), 0, 1)) ?>
 					</span>
-					<span class="hidden text-sm font-medium text-slate-600 sm:inline">
+					<span class="hidden text-sm font-medium text-ink-600 sm:inline">
 						Hi, <?php echo htmlspecialchars($this->session->userdata('nama'), ENT_QUOTES, 'UTF-8') ?>
 					</span>
 				</span>
@@ -59,4 +58,4 @@ $page_title = isset($page_title) && $page_title !== ''
 		<div class="flex">
 
 			<!-- Backdrop shown on small screens while the sidebar is open. -->
-			<div class="fixed inset-0 z-30 hidden bg-slate-900/50 lg:hidden" data-sidebar-backdrop hidden></div>
+			<div class="fixed inset-0 z-30 hidden bg-ink-900/50 lg:hidden" data-sidebar-backdrop hidden></div>
